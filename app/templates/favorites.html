@@ -1,0 +1,72 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+Favorilerim
+{% endblock title %}
+
+{% block body %}
+<div class="product-big-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-bit-title text-center">
+                    <h2>Favorilerim</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- End Page title area -->
+
+
+<div class="single-product-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-content-right">
+                    <div class="woocommerce">
+                        <table cellspacing="0" class="shop_table cart">
+                            <thead>
+                                <tr>
+                                    <th class="product-remove">&nbsp;</th>
+                                    <th class="product-thumbnail">Ürün resmi</th>
+                                    <th class="product-name">Ürün</th>
+                                    <th class="product-price">Fiyat</th>
+                                    <th class="product-cart">Sepete Ekle</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for product in favorites_data %}
+                                <tr class="cart_item">
+                                    <td class="product-remove">
+                                        <a title="Favorilerden Çıkar" class="remove"
+                                            href="/removefavorites/{{product['favorite_id']}}">X</a>
+                                    </td>
+
+                                    <td class="product-thumbnail">
+                                        <a href="/product/{{product['product_id']}}"><img width="145" height="145" alt="poster_1_up"
+                                                class="shop_thumbnail" src="/static/{{product['image']}}" style="max-width: 50px !important; max-height: 100px !important;"></a>
+                                    </td>
+
+                                    <td class="product-name">
+                                        <a href="/product/{{product['product_id']}}">{{product['name']}}</a>
+                                    </td>
+
+                                    <td class="product-price">
+                                        <span class="amount">{{product['price']}}₺</span>
+                                    </td>
+                                    <td class="product-remove">
+                                        <a title="Sepete Ekle" class="remove"
+                                            href="/addcart/{{product['product_id']}}"><i class="fa fa-shopping-cart"></i></a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

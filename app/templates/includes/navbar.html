@@ -1,0 +1,70 @@
+<div class="header-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="user-menu">
+                    <ul>
+                        <li><a href="/"><i class="fa fa-home"></i> Anasayfa</a></li>
+                        {% if session["logged_in"] %}
+                        <li><a href="/favorites"><i class="fa fa-heart"></i> Favoriler</a></li>
+                        <li><a href="/cart"><i class="fa fa-shopping-cart"></i> Sepetim</a></li>
+                        {% if session["user_group"] == "Admin" %}
+                        <li><a href="/panel"><i class="fa fa-sliders"></i> Kontrol Paneli</a></li>
+                        {% endif %}
+                        <li><a href="/logout"><i class="fa fa-times"></i> Çıkış Yap</a></li>
+                        {% else %}
+                        <li><a href="/login"><i class="fa fa-user"></i> Giriş Yap / Kayıt Ol</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!--  -->
+
+
+<div class="site-branding-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="logo">
+                    <h1><a href="/">m<span>FO</span></a></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- End site branding area -->
+
+<div class="mainmenu-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/">Ana Sayfa</a></li>
+                        <li><a href="/products/">Ürünler</a></li>
+                        <li><a href="/categories">Kategoriler</a></li>
+                    </ul>
+                </div>
+            </div>
+            {% if session["logged_in"] %}
+            <div class="col-sm-6">
+                <div class="shopping-item">
+                    <a href="/cart">Sepet - <span class="cart-amunt">{{user_cart[1]}}₺</span> <i
+                            class="fa fa-shopping-cart"></i>
+                        <span class="product-count">{{user_cart[0]}}</span></a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+</div> <!-- End mainmenu area -->

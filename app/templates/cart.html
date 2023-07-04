@@ -1,0 +1,109 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+Sepetim
+{% endblock title %}
+
+{% block body %}
+<div class="product-big-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-bit-title text-center">
+                    <h2>Sepetim</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- End Page title area -->
+
+
+<div class="single-product-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-content-right">
+                    <div class="woocommerce">
+                        <form method="post" action="#">
+                            <table cellspacing="0" class="shop_table cart">
+                                <thead>
+                                    <tr>
+                                        <th class="product-remove">&nbsp;</th>
+                                        <th class="product-thumbnail">Ürün resmi</th>
+                                        <th class="product-name">Ürün</th>
+                                        <th class="product-price">Fiyat</th>
+                                        <th class="product-quantity">Adet</th>
+                                        <th class="product-subtotal">Toplam</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for product in data %}                                    
+                                    <tr class="cart_item">
+                                        <td class="product-remove">
+                                            <a title="Sepetten Çıkar" class="remove" href="/removeproduct/{{ product['cart_id'] }}">X</a>
+                                        </td>
+
+                                        <td class="product-thumbnail">
+                                            <a href="/product/{{product['id']}}"><img style="max-width: 50px !important; max-height: 100px !important;"
+                                                    alt="poster_1_up" class="shop_thumbnail"
+                                                    src="static/{{ product['image'] }}"></a>
+                                        </td>
+
+                                        <td class="product-name">
+                                            <a href="/product/{{product['id']}}">{{ product["name"] }}</a>
+                                        </td>
+
+                                        <td class="product-price">
+                                            <span class="amount">{{ product['price'] }}₺</span>
+                                        </td>
+
+                                        <td class="product-quantity">
+                                            <div class="quantity buttons_added">
+                                                <span class="amount">{{ product['quantity'] }}</span>
+                                            </div>
+                                        </td>
+
+                                        <td class="product-subtotal">
+                                            <span class="amount">{{ product['total_price'] }}₺</span>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+
+                                    <tr>
+                                        <td class="actions">
+                                            <input type="hidden" name="user_cart_value" value="{{ user_cart[1] }}">
+                                            <input type="submit" value="Ödeme Yap" name="proceed"
+                                                class="checkout-button button alt wc-forward">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>
+
+                        <div class="cart-collaterals">
+                            <div class="cart_totals ">
+                                <h2>Sepet Toplamı</h2>
+                                <table cellspacing="0">
+                                    <tbody>
+                                        <tr class="shipping">
+                                            <th>Kargo Ücreti</th>
+                                            <td>Kargo Bedava</td>
+                                        </tr>
+
+                                        <tr class="order-total">
+                                            <th>Sepet Toplamı</th>
+                                            <td><strong><span class="amount">{{user_cart[1]}}₺</span></strong> </td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

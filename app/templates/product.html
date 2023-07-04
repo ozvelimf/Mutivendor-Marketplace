@@ -1,0 +1,96 @@
+
+{% extends 'layout.html' %}
+
+{% block title %}
+{{product_data['name']}}
+{% endblock title %}
+
+{% block body %}
+
+<div class="product-big-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-bit-title text-center">
+                    <h2>{{product_data['name']}}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="single-product-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row">
+            <div class="container">
+                <div class="product-content-right">
+                    <div class="product-breadcroumb">
+                        <a href="/">Ana Sayfa</a>
+                        <a href="/products">Ürünler</a>
+                        <a href="/product/{{product_data['product_id']}}">{{product_data['name']}}</a>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="product-images">
+                                <div class="product-main-img">
+                                    <img src="/static/{{product_data['image']}}" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-6">
+                            <div class="product-inner">
+                                <h2 class="product-name">{{product_data['name']}}</h2>
+                                <div class="product-inner-price">
+                                    <ins>{{product_data['price']}}₺</ins>
+                                </div>    
+                                {% if session["logged_in"] %}
+                                <form action="/addcart/{{product_data['product_id']}}" method="post" class="cart">
+                                    <div class="quantity">
+                                        <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="quantity" min="1" step="1">
+                                    </div>
+                                    <button class="add_to_cart_button" type="submit">Sepete Ekle</button>
+                                </form>
+                                {% endif %}
+                                
+                                {% if session["logged_in"] %}
+                                    {% if product_data['favorite'][0] == True %}
+                                    <a href="/removefavorites/{{product_data['favorite'][1]}}" class="add_to_cart_button" title="Favorilerden Çıkar" style="margin-bottom:10px;"><i class="fa fa-bookmark"></i> Favorilerden Çıkar</a>
+                                    {% else %}
+                                    <a href="/addfav/{{product_data['product_id']}}" class="add_to_cart_button2" title="Favorilere Ekle" style="margin-bottom:10px;"><i class="fa fa-bookmark-o"></i> Favorilere Ekle</a>
+                                    {% endif %}
+                                {% endif %}
+
+                                <div class="product-inner-category">
+                                    <p>Kategori: <a href="">{{product_data['category']}}</a>. 
+                                </div> 
+                                
+                                <div role="tabpanel">
+                                    <ul class="product-tab" role="tablist">
+                                        <li role="presentation" class="active"><a aria-controls="home" role="tab" data-toggle="tab" class="disabled">Özellikler</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div>
+                                            {% for desc in product_data['description'] %}
+                                                <p>{{desc}}</p>
+                                            {% endfor %}
+                                            
+                                        </div>
+                                     
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                </div>                    
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

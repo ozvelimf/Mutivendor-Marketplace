@@ -1,0 +1,97 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+Ürünler
+{% endblock title %}
+{% block body %}
+<div class="product-big-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-bit-title text-center">
+                    <h2>Ürünler</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="single-product-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row">
+            {% for product in product_data %}
+            <div class="col-md-3 col-sm-6">
+                <div class="single-shop-product">
+                    <div class="product-upper">
+                        <a href="/product/{{product['id']}}"><img src="{{ url_for('static', filename=product['image']) }}" alt=""
+                                style="height: 200px; width:100px; display: block; margin-left: auto; margin-right: auto; object-fit: contain;"></a>
+                    </div>
+                    <h2><a href="">{{product['name']}}</a></h2>
+                    <div class="product-carousel-price" style="display: block; margin-left: auto; margin-right: auto;">
+                        <ins>{{product['price']}}₺</ins>
+                    </div>  
+                    {% if 'logged_in' in session %}
+                    <div class="product-option-shop">
+                        <a class="add_to_cart_button" data-quantity="{{product['id']}}" data-product_sku=""
+                            data-product_id="{{product['id']}}" rel="nofollow"
+                            href="/addcart/{{product['id']}}">Sepete Ekle</a>
+                        <a class="add_to_cart_button" data-quantity="{{product['id']}}" data-product_sku=""
+                            data-product_id="{{product['id']}}" rel="nofollow" href="/product/{{product['id']}}">Ürüne
+                            Git</a>
+                    </div>
+                    {% else %}
+                    <div class="product-option-shop">
+                        <a class="add_to_cart_button" data-quantity="{{product['id']}}" data-product_sku=""
+                            data-product_id="{{product['id']}}" rel="nofollow" href="/product/{{product['id']}}">Ürüne
+                            Git</a>
+                    </div>
+                    {% endif %}
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-pagination text-center">
+                    <nav>
+                        <ul class="pagination">
+                            <li {% if current_page==1 %}class="disabled" {% endif %}>
+                                {% if current_page > 1 %}
+                                <a href="/products/{{ current_page - 1 }}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                                {% else %}
+                                <span aria-hidden="true" class="disabled">&laquo;</span>
+                                {% endif %}
+                            </li>
+                            {% for page in range(1, total_pages + 1) %}
+                            <li {% if page==current_page %}class="active" {% endif %}>
+                                <a href="/products/{{ page }}">{{ page }}</a>
+                            </li>
+                            {% endfor %}
+                            <li {% if current_page == total_pages %}class="disabled"{% endif %}>
+                                {% if current_page < total_pages %}
+                                    <a href="/products/{{ current_page + 1 }}" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                {% else %}
+                                    <span aria-hidden="true" class="disabled">&raquo;</span>
+                                {% endif %}
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+{% endblock body %}
